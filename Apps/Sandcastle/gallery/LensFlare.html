@@ -63,38 +63,35 @@
 function startup(Cesium) {
     'use strict';
 //Sandcastle_Begin
-    var viewer = new Cesium.Viewer('cesiumContainer');
-    var scene = viewer.scene;
-    var postProcessor = scene._postProcessor;
+var viewer = new Cesium.Viewer('cesiumContainer');
+var scene = viewer.scene;
+var postProcess = scene.postProcess;
 
-    var viewModel = {
-        LensFlare_Show: true,
-        LensFlare_Intensity: 2.0,
-        LensFlare_Distortion: 10.0,
-        LensFlare_Dispersion: 0.4,
-        LensFlare_HaloWidth: 0.4,
+var viewModel = {
+    lensFlareShow: true,
+    lensFlareIntensity: 2.0,
+    lensFlarDistortion: 10.0,
+    lensFlarDispersion: 0.4,
+    lensFlarHaloWidth: 0.4
+};
 
-    };
+Cesium.knockout.track(viewModel);
+var toolbar = document.getElementById('toolbar');
+Cesium.knockout.applyBindings(viewModel, toolbar);
+Cesium.knockout.getObservable(viewModel, 'LensFlare_Show').subscribe(updateSettings);
+Cesium.knockout.getObservable(viewModel, 'LensFlare_Intensity').subscribe(updateSettings);
+Cesium.knockout.getObservable(viewModel, 'LensFlare_Distortion').subscribe(updateSettings);
+Cesium.knockout.getObservable(viewModel, 'LensFlare_Dispersion').subscribe(updateSettings);
+Cesium.knockout.getObservable(viewModel, 'LensFlare_HaloWidth').subscribe(updateSettings);
 
-
-    Cesium.knockout.track(viewModel);
-    var toolbar = document.getElementById('toolbar');
-    Cesium.knockout.applyBindings(viewModel, toolbar);
-    Cesium.knockout.getObservable(viewModel, 'LensFlare_Show').subscribe(updateSettings);
-    Cesium.knockout.getObservable(viewModel, 'LensFlare_Intensity').subscribe(updateSettings);
-    Cesium.knockout.getObservable(viewModel, 'LensFlare_Distortion').subscribe(updateSettings);
-    Cesium.knockout.getObservable(viewModel, 'LensFlare_Dispersion').subscribe(updateSettings);
-    Cesium.knockout.getObservable(viewModel, 'LensFlare_HaloWidth').subscribe(updateSettings);
-
-    function updateSettings() {
-        postProcessor.lensFlareStage.show = Boolean(viewModel.LensFlare_Show);
-        postProcessor.lensFlareStage._uniformValues.intensity = Number(viewModel.LensFlare_Intensity);
-        postProcessor.lensFlareStage._uniformValues.distortion = Number(viewModel.LensFlare_Distortion);
-        postProcessor.lensFlareStage._uniformValues.ghostDispersal = Number(viewModel.LensFlare_Dispersion);
-        postProcessor.lensFlareStage._uniformValues.haloWidth = Number(viewModel.LensFlare_HaloWidth);
-        postProcessor.lensFlareStage._uniformValues.earthRadius = Cesium.Ellipsoid.WGS84.maximumRadius;
-    }
-
+function updateSettings() {
+    postProcessor.lensFlareStage.show = Boolean(viewModel.LensFlare_Show);
+    postProcessor.lensFlareStage._uniformValues.intensity = Number(viewModel.LensFlare_Intensity);
+    postProcessor.lensFlareStage._uniformValues.distortion = Number(viewModel.LensFlare_Distortion);
+    postProcessor.lensFlareStage._uniformValues.ghostDispersal = Number(viewModel.LensFlare_Dispersion);
+    postProcessor.lensFlareStage._uniformValues.haloWidth = Number(viewModel.LensFlare_HaloWidth);
+    postProcessor.lensFlareStage._uniformValues.earthRadius = Cesium.Ellipsoid.WGS84.maximumRadius;
+}
 //Sandcastle_End
 Sandcastle.finishedLoading();
 }
