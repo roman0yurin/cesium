@@ -6,14 +6,20 @@ require([
     ], function(
         Cesium) {
     'use strict';
-    /*global self,module*/
-    if (typeof window !== 'undefined') {
-        window.Cesium = Cesium;
-    } else if (typeof self !== 'undefined') {
-        self.Cesium = Cesium;
-    } else if(typeof module !== 'undefined') {
-        module.exports = Cesium;
-    } else {
-        console.log('Unable to load Cesium.');
-    }
+    /*global self*/
+    let scope;
+		 if (typeof window !== 'undefined') {
+				 window.Cesium = Cesium;
+				 scope = window;
+		 } else if (typeof self !== 'undefined') {
+				 self.Cesium = Cesium;
+				 scope = self;
+		 } else if(typeof module !== 'undefined') {
+				 module.exports = Cesium;
+				 scope = module;
+		 } else {
+				 console.error('Unable to load Cesium.');
+		 }
+    if(scope.waitCesium)
+            scope.waitCesium()
 }, undefined, true);
