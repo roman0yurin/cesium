@@ -8,6 +8,7 @@ require([
     'use strict';
     /*global self*/
     var scope = typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : {};
-
     scope.Cesium = Cesium;
+    if(scope.waitCesium)
+        scope.waitCesium();
 }, undefined, true);
