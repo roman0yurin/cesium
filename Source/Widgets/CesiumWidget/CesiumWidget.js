@@ -313,7 +313,7 @@ define([
             }
 
             //Set the base imagery layer
-            var imageryProvider = (options.globe === false) ? false : options.imageryProvider;
+            var imageryProvider = (options.globe === false || options.imageryProvider == null) ? false : options.imageryProvider;
             if (!defined(imageryProvider)) {
                 imageryProvider = createWorldImagery();
             }
