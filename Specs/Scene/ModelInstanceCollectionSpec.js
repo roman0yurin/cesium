@@ -3,17 +3,14 @@ defineSuite([
         'Core/BoundingSphere',
         'Core/Cartesian3',
         'Core/defaultValue',
-        'Core/defined',
         'Core/HeadingPitchRange',
         'Core/HeadingPitchRoll',
         'Core/JulianDate',
-        'Core/Math',
         'Core/Matrix4',
         'Core/PrimitiveType',
+        'Core/Resource',
         'Core/Transforms',
         'Scene/Model',
-        'Scene/ModelAnimationLoop',
-        'Scene/SceneMode',
         'Scene/ShadowMode',
         'Specs/createScene',
         'Specs/pollToPromise',
@@ -23,17 +20,14 @@ defineSuite([
         BoundingSphere,
         Cartesian3,
         defaultValue,
-        defined,
         HeadingPitchRange,
         HeadingPitchRoll,
         JulianDate,
-        CesiumMath,
         Matrix4,
         PrimitiveType,
+        Resource,
         Transforms,
         Model,
-        ModelAnimationLoop,
-        SceneMode,
         ShadowMode,
         createScene,
         pollToPromise,
@@ -252,6 +246,19 @@ defineSuite([
     it('renders from url', function() {
         return loadCollection({
             url : boxUrl,
+            instances : createInstances(4)
+        }).then(function(collection) {
+            expectRender(collection);
+        });
+    });
+
+    it('renders from Resource', function() {
+        var resource = new Resource({
+            url : boxUrl
+        });
+
+        return loadCollection({
+            url : resource,
             instances : createInstances(4)
         }).then(function(collection) {
             expectRender(collection);

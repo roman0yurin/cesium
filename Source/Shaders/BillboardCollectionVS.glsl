@@ -10,6 +10,9 @@ attribute vec4 eyeOffset;                                  // eye offset in mete
 attribute vec4 scaleByDistance;                            // near, nearScale, far, farScale
 attribute vec4 pixelOffsetScaleByDistance;                 // near, nearScale, far, farScale
 attribute vec3 distanceDisplayConditionAndDisableDepth;    // near, far, disableDepthTestDistance
+#ifdef VECTOR_TILE
+attribute float a_batchId;
+#endif
 
 varying vec2 v_textureCoordinates;
 
@@ -265,11 +268,12 @@ void main()
 
     if (disableDepthTestDistance != 0.0)
     {
-        gl_Position.z = min(gl_Position.z, gl_Position.w);
-
-        bool clipped = gl_Position.z < -gl_Position.w || gl_Position.z > gl_Position.w;
+        // Don't try to "multiply both sides" by w.  Greater/less-than comparisons won't work for negative values of w.
+        float zclip = gl_Position.z / gl_Position.w;
+        bool clipped = (zclip < -1.0 || zclip > 1.0);
         if (!clipped && (disableDepthTestDistance < 0.0 || (lengthSq > 0.0 && lengthSq < disableDepthTestDistance)))
         {
+            // Position z on the near plane.
             gl_Position.z = -gl_Position.w;
         }
     }

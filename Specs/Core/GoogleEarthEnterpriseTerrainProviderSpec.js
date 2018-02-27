@@ -2,17 +2,16 @@ defineSuite([
         'Core/GoogleEarthEnterpriseTerrainProvider',
         'Core/DefaultProxy',
         'Core/defaultValue',
-        'Core/defined',
         'Core/Ellipsoid',
         'Core/GeographicTilingScheme',
         'Core/GoogleEarthEnterpriseMetadata',
         'Core/GoogleEarthEnterpriseTerrainData',
         'Core/GoogleEarthEnterpriseTileInformation',
-        'Core/loadImage',
         'Core/loadWithXhr',
         'Core/Math',
         'Core/Request',
         'Core/RequestScheduler',
+        'Core/Resource',
         'Core/TerrainProvider',
         'Specs/pollToPromise',
         'ThirdParty/when'
@@ -20,17 +19,16 @@ defineSuite([
         GoogleEarthEnterpriseTerrainProvider,
         DefaultProxy,
         defaultValue,
-        defined,
         Ellipsoid,
         GeographicTilingScheme,
         GoogleEarthEnterpriseMetadata,
         GoogleEarthEnterpriseTerrainData,
         GoogleEarthEnterpriseTileInformation,
-        loadImage,
         loadWithXhr,
         CesiumMath,
         Request,
         RequestScheduler,
+        Resource,
         TerrainProvider,
         pollToPromise,
         when) {
@@ -110,6 +108,23 @@ defineSuite([
 
         terrainProvider = new GoogleEarthEnterpriseTerrainProvider({
             url : 'made/up/url'
+        });
+
+        return terrainProvider.readyPromise.then(function(result) {
+            expect(result).toBe(true);
+            expect(terrainProvider.ready).toBe(true);
+        });
+    });
+
+    it('resolves readyPromise with Resource', function() {
+        var resource = new Resource({
+            url : 'made/up/url'
+        });
+
+        installMockGetQuadTreePacket();
+
+        terrainProvider = new GoogleEarthEnterpriseTerrainProvider({
+            url : resource
         });
 
         return terrainProvider.readyPromise.then(function(result) {

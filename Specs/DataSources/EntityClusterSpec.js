@@ -11,7 +11,6 @@ defineSuite([
         'DataSources/Entity',
         'Scene/SceneTransforms',
         'Specs/createCanvas',
-        'Specs/createGlobe',
         'Specs/createScene'
     ], function(
         EntityCluster,
@@ -26,7 +25,6 @@ defineSuite([
         Entity,
         SceneTransforms,
         createCanvas,
-        createGlobe,
         createScene) {
     'use strict';
 
@@ -50,8 +48,11 @@ defineSuite([
                     tilesWaitingForChildren : 0
                 }
             },
+            tileLoadedEvent : new Event(),
+            imageryLayersUpdatedEvent : new Event(),
             beginFrame : function() {},
             update : function() {},
+            render : function() {},
             endFrame : function() {}
 
         };
