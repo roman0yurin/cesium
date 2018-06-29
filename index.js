@@ -6,7 +6,8 @@ var requirejs = require('requirejs');
 
 requirejs.config({
                      paths : {
-                         'Cesium' : path.join(__dirname, 'Source')
+                         'Cesium' : path.join(__dirname, 'Source'),
+                         waitSeconds: 200
                      },
                      nodeRequire : require
                  });

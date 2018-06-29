@@ -2020,7 +2020,7 @@
 			"loader-define-nonmodule":0
 		},
 		async:0,
-		waitSeconds:15
+		waitSeconds:150
 	}
 );
 //>>excludeEnd("replaceLoaderConfig")

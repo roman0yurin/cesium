@@ -44,7 +44,7 @@
         toRequire.push('./Stubs/paths');
     } else {
         require.config({
-            waitSeconds: 30,
+            waitSeconds: 300,
             baseUrl: getQueryParameter('baseUrl') || '../Source',
             paths: {
                 'Specs': '../Specs',
