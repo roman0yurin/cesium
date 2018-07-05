@@ -1,5 +1,7 @@
 import defaultValue from '../Core/defaultValue.js';
 import defined from '../Core/defined.js';
+import defineProperties from '../Core/defineProperties.js';
+import Pass from '../Renderer/Pass.js';
 import PrimitiveType from '../Core/PrimitiveType.js';
 
     /**
@@ -554,6 +556,10 @@ import PrimitiveType from '../Core/PrimitiveType.js';
      * @param {PassState} [passState] The state for the current render pass.
      */
     DrawCommand.prototype.execute = function(context, passState) {
-        context.draw(this, passState);
+        const v = this.vertexArray;
+        if(!v || !v.isDestroyed()) //TODO после сортировки CESIUM_3D_TILE стали попадаться битые команды
+            context.draw(this, passState);
+//        else
+//            console.warn("destroyed command");
     };
 export default DrawCommand;
