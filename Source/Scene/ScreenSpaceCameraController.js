@@ -1276,6 +1276,15 @@ import TweenCollection from './TweenCollection.js';
     var scratchEllipsoid = new Ellipsoid();
     var scratchLookUp = new Cartesian3();
 
+    /**
+    * При прокрутке много процессорного времени тратится на перевычисление точки под курсором,
+    * Хотя до окончания перетаскивания эта точка не должна меняться и ее можно получить здесь из кеша.
+    **/
+    var mouseDragPositionCache = {
+        startPos: new Cartesian2(), //На каком положении мы запомнили мировую координату
+        value: new Cartesian3()
+    };
+
     function spin3D(controller, startPosition, movement) {
         var scene = controller._scene;
         var camera = scene.camera;
@@ -1297,7 +1306,12 @@ import TweenCollection from './TweenCollection.js';
         var mousePos;
         var tangentPick = false;
         if (defined(globe) && height < controller._minimumPickingTerrainHeight) {
-            mousePos = pickGlobe(controller, movement.startPosition, scratchMousePos);
+            //Метод pickGlobe требует много процессорного времени, если перевычислять его на каждое движение мыши, к тому же это и не нужно делать пока кнопка мыши не будет отжата
+            if(!Cartesian2.equals(startPosition, mouseDragPositionCache.startPos)){
+                mouseDragPositionCache.value = pickGlobe(controller, movement.startPosition, scratchMousePos)
+                mouseDragPositionCache.startPos = startPosition.clone();
+            }
+            mousePos = mouseDragPositionCache.value;
             if (defined(mousePos)) {
                 var ray = camera.getPickRay(movement.startPosition, pickGlobeScratchRay);
                 var normal = controller._ellipsoid.geodeticSurfaceNormal(mousePos);
