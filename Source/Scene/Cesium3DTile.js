@@ -139,7 +139,7 @@ define([
          * @type {Number}
          * @readonly
          */
-        this.geometricError = header.geometricError;
+        this.geometricError = header.geometricError * (cesiumDetalizationMultipler ? cesiumDetalizationMultipler : 1);
 
         if (!defined(this.geometricError)) {
             this.geometricError = defined(parent) ? parent.geometricError : tileset._geometricError;
