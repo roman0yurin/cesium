@@ -1,11 +1,9 @@
 define([
-        '../Renderer/Pass',
         '../Core/defaultValue',
         '../Core/defined',
         '../Core/defineProperties',
         '../Core/PrimitiveType'
     ], function(
-        Pass,
         defaultValue,
         defined,
         defineProperties,
@@ -564,11 +562,7 @@ define([
      * @param {PassState} [passState] The state for the current render pass.
      */
     DrawCommand.prototype.execute = function(context, passState) {
-        const v = this.vertexArray;
-        if(!v || !v.isDestroyed()) //TODO после сортировки CESIUM_3D_TILE стали попадаться битые команды
-            context.draw(this, passState);
-//        else
-//            console.warn("destroyed command");
+        context.draw(this, passState);
     };
 
     return DrawCommand;
