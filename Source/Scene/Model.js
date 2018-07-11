@@ -3279,7 +3279,6 @@ define([
             u.values = uniforms.values;                           // material parameter name -> ModelMaterial for modifying the parameter at runtime
             u.jointMatrixUniformName = uniforms.jointMatrixUniformName;
             u.morphWeightsUniformName = uniforms.morphWeightsUniformName;
-            u.uniformMap.hashCode = c60.JHashUtils.hashCode(uniformValues, 3);
         });
     }
 
