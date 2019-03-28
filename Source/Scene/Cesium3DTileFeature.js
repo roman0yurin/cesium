@@ -266,4 +266,9 @@ import defined from '../Core/defined.js';
     Cesium3DTileFeature.prototype.getExactClassName = function() {
         return this._content.batchTable.getExactClassName(this._batchId);
     };
+
+    /**Идентификатор (порядковый номер) данного объекта в glTF и batchTable**/
+    Cesium3DTileFeature.prototype.getBatchId = function() {
+        return this._batchId
+    };
 export default Cesium3DTileFeature;
