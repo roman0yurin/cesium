@@ -316,7 +316,12 @@ define([
             // We could also make another request for it, but that would make the property set/get
             // API async, and would double the number of numbers in some cases.
             var batchTableString = getStringFromTypedArray(uint8Array, byteOffset, batchTableJsonByteLength);
-            batchTableJson = JSON.parse(batchTableString);
+            try{
+                batchTableJson = JSON.parse(batchTableString);
+            }catch(ex){
+                console.error(ex);
+                throw ex;
+            }
             byteOffset += batchTableJsonByteLength;
 
             if (batchTableBinaryByteLength > 0) {
