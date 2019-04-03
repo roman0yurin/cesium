@@ -3308,6 +3308,12 @@ define([
         }
     }
 
+    /**Нужно в данный момент рендерить следующий кадр.**/
+    Scene.prototype.shouldRenderFrame = function(){
+        var cameraChanged = this._view.checkForCameraUpdates(this);
+        return !this.requestRenderMode || this._renderRequested || cameraChanged || this._logDepthBufferDirty || this._hdrDirty || (this.mode === SceneMode.MORPHING);
+    }
+
     /**
      * Update and render the scene.
      * @param {JulianDate} [time] The simulation time at which to render.
@@ -3330,8 +3336,7 @@ define([
         }
 
         // Determine if shouldRender
-        var cameraChanged = this._view.checkForCameraUpdates(this);
-        var shouldRender = !this.requestRenderMode || this._renderRequested || cameraChanged || this._logDepthBufferDirty || this._hdrDirty || (this.mode === SceneMode.MORPHING);
+        var shouldRender = this.shouldRenderFrame();
         if (!shouldRender && defined(this.maximumRenderTimeChange) && defined(this._lastRenderTime)) {
             var difference = Math.abs(JulianDate.secondsDifference(this._lastRenderTime, time));
             shouldRender = shouldRender || difference > this.maximumRenderTimeChange;
