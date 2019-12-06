@@ -58,6 +58,7 @@ if (!concurrency) {
 }
 
 var sourceFiles = ['Source/**/*.js',
+                   'ThirdParty/navigation/**/*.js',
                    '!Source/*.js',
                    '!Source/Workers/**',
                    '!Source/WorkersES6/**',

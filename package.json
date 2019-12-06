@@ -33,7 +33,8 @@
   "module": "Source/Cesium.js",
   "type": "module",
   "dependencies": {
-    "esm": "^3.2.25"
+    "esm": "^3.2.25",
+    "hammerjs": "^2.0.8"
   },
   "devDependencies": {
     "aws-sdk": "^2.531.0",
