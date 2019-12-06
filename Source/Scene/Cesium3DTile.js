@@ -99,7 +99,7 @@ import TileOrientedBoundingBox from './TileOrientedBoundingBox.js';
          * @type {Number}
          * @readonly
          */
-        this.geometricError = header.geometricError * (cesiumDetalizationMultipler ? cesiumDetalizationMultipler : 1);
+        this.geometricError = header.geometricError * (typeof cesiumDetalizationMultipler !== 'undefined' ? cesiumDetalizationMultipler : 1);
         this._geometricError = this.geometricError;
 
         if (!defined(this._geometricError)) {
