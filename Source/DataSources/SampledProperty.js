@@ -630,6 +630,11 @@ import LinearApproximation from '../Core/LinearApproximation.js';
         return true;
     };
 
+    SampledProperty.prototype.clearSamples = function(){
+        var packedLength = this._packedLength;
+        removeSamples(this, 0, this._values.length / packedLength);
+    }
+
     function removeSamples(property, startIndex, numberToRemove) {
         var packedLength = property._packedLength;
         property._times.splice(startIndex, numberToRemove);
