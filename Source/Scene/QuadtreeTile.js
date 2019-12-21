@@ -152,7 +152,7 @@ import TileSelectionResult from './TileSelectionResult.js';
             rectangle = this._rectangle;
             for (i = 0; i < added.length; ++i) {
                 data = added[i];
-                if (Rectangle.contains(rectangle, data.positionCartographic)) {
+                if (data.positionCartographic && Rectangle.contains(rectangle, data.positionCartographic)) {
                     customData.push(data);
                 }
             }
