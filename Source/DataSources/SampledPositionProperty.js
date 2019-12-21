@@ -220,6 +220,11 @@ import SampledProperty from './SampledProperty.js';
         this._property.setInterpolationOptions(options);
     };
 
+    /**Очистить список точек**/
+    SampledPositionProperty.prototype.clearSamples = function(){
+        this._property.clearSamples();
+    }
+
     /**
      * Adds a new sample.
      *
