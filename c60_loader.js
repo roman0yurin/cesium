@@ -1,6 +1,6 @@
 // into the global scope during local developmnet
 window.CESIUM_BASE_URL = "/map3d/js/develop/Cesium/Source";
-import * as Cesium from "./Cesium.js";
+import * as Cesium from "/map3d/js/develop/Cesium/Source/Cesium.js";
 window.Cesium = Cesium;
 
 // Since ES6 modules have no guaranteed load order,
