@@ -1,5 +1,4 @@
 import defined from '../../../Source/Core/defined.js';
-import defineProperties from '../../../Source/Core/defineProperties.js';
 import DeveloperError from '../../../Source/Core/DeveloperError.js';
 import Knockout from '../../../Source/ThirdParty/knockout.js';
 
@@ -69,7 +68,7 @@ var UserInterfaceControl = function (terria) {
     Knockout.track(this, ['name', 'svgIcon', 'svgHeight', 'svgWidth', 'cssClass', 'isActive']);
 };
 
-defineProperties(UserInterfaceControl.prototype, {
+Object.defineProperties(UserInterfaceControl.prototype, {
     /**
      * Gets the Terria instance.
      * @memberOf UserInterfaceControl.prototype

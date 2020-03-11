@@ -1,6 +1,5 @@
 import defaultValue from '../Core/defaultValue.js';
 import defined from '../Core/defined.js';
-import defineProperties from '../Core/defineProperties.js';
 import Pass from '../Renderer/Pass.js';
 import PrimitiveType from '../Core/PrimitiveType.js';
 
@@ -45,7 +44,7 @@ import PrimitiveType from '../Core/PrimitiveType.js';
         this.derivedCommands = {};
     }
 
-    defineProperties(DrawCommand.prototype, {
+    Object.defineProperties(DrawCommand.prototype, {
         /**
          * The bounding volume of the geometry in world space.  This is used for culling and frustum selection.
          * <p>
